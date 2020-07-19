@@ -1,4 +1,4 @@
-package com.demo.accesscotrol.config;
+package com.demo.accesscontrol.config;
 /*
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
