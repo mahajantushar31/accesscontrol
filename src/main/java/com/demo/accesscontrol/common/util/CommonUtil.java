@@ -1,4 +1,4 @@
-package com.demo.accesscontrol.commons.util;
+package com.demo.accesscontrol.common.util;
 
 import java.lang.reflect.Field;
 /**
@@ -34,7 +34,7 @@ public class CommonUtil {
 				 }
 			 }
 		 }else {
-			 System.out.println(" Object 1 : "+fields1.length);
+			 System.out.println(" NO MAtch while object maping Object 1 : "+fields1.length);
 		 }
 		 
 		 		
