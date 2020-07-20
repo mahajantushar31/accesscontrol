@@ -60,6 +60,45 @@ public class SystemConfig implements Serializable{
 		@Getter @Setter
 	    private String systemValue;	// varchar2	50
 		
+		// ------- GETTES SETTERS --------------
+		 public Integer getId() {
+				return id;
+			}
+
+			public void setId(Integer id) {
+				this.id = id;
+			}
+
+			public String getSystemKey() {
+				return systemKey;
+			}
+
+			public void setSystemKey(String systemKey) {
+				this.systemKey = systemKey;
+			}
+
+			public String getSystemValue() {
+				return systemValue;
+			}
+
+			public void setSystemValue(String systemValue) {
+				this.systemValue = systemValue;
+			}
+
+			public Date getCreatedAt() {
+				return createdAt;
+			}
+
+			public void setCreatedAt(Date createdAt) {
+				this.createdAt = createdAt;
+			}
+
+			public Date getUpdatedAt() {
+				return updatedAt;
+			}
+		
+		
+		// ------- GETTES SETTERS --------------
 		// ----- For Record ---------
 		@Column(nullable = false, updatable = false)
 	    @Temporal(TemporalType.TIMESTAMP)
@@ -67,7 +106,13 @@ public class SystemConfig implements Serializable{
 	    @CreatedDate
 	    private Date createdAt;
 
-	    @Column(nullable = false)
+	   
+
+		public void setUpdatedAt(Date updatedAt) {
+			this.updatedAt = updatedAt;
+		}
+
+		@Column(nullable = false)
 	    @Temporal(TemporalType.TIMESTAMP)
 	    @LastModifiedDate
 	    @Getter @Setter
