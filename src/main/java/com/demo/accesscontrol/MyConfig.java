@@ -1,3 +1,11 @@
+
+/*===========================
+FileName: MyConfig.java
+Author:Tushar Mahajan
+History:
+Date:Jul 17, 2020:created ,instantiate Config Properties files for access
+============================*/
+
 package com.demo.accesscontrol;
 
 import org.springframework.context.annotation.ComponentScan;
@@ -6,6 +14,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+import com.demo.accesscontrol.common.util.ConfigProperties;
 /**
  * @author Tushar mahajan
  *
@@ -22,6 +32,12 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
 	    public void configure(WebSecurity web) throws Exception {
 	        web.ignoring().antMatchers("/**");
 	    
+	     // read config property file
+	        
+	        ConfigProperties config=new ConfigProperties();
+	        config.readConfig();
+	        
+	        
 		/*
 		 * http.antMatcher("/**") .authorizeRequests() .antMatchers("/").permitAll().se
 		 * .anyRequest() .authenticated() .and() .httpBasic() .and() .csrf().disable();
