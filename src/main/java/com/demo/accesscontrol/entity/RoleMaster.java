@@ -44,10 +44,28 @@ public class RoleMaster implements Serializable {
 	    private String roleName;
 	    
 
+		// ----- getters setters -------
 		
+		
+	    public Long getRole_id() {
+			return role_id;
+		}
+
+		public void setRole_id(Long role_id) {
+			this.role_id = role_id;
+		}
+
+		public String getRoleName() {
+			return roleName;
+		}
+
+		public void setRoleName(String roleName) {
+			this.roleName = roleName;
+		}
+
 		// ----- For Record ---------
 		
-	    @Column(nullable = false, updatable = false)
+		@Column(nullable = false, updatable = false)
 	    @Temporal(TemporalType.TIMESTAMP)
 	    @Getter @Setter
 	    @CreatedDate
