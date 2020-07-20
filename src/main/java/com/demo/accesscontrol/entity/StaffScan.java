@@ -61,6 +61,57 @@ public class StaffScan implements Serializable {
 	    @Getter @Setter
 	    private String scan_type;
 		
+		// --------------- GETTERS SETTERS -------------
+		
+		public Long getStaff_id() {
+			return staff_id;
+		}
+
+		public void setStaff_id(Long staff_id) {
+			this.staff_id = staff_id;
+		}
+
+		public Date getScan_date() {
+			return scan_date;
+		}
+
+		public void setScan_date(Date scan_date) {
+			this.scan_date = scan_date;
+		}
+
+		public double getScan_temp() {
+			return scan_temp;
+		}
+
+		public void setScan_temp(double scan_temp) {
+			this.scan_temp = scan_temp;
+		}
+
+		public String getScan_type() {
+			return scan_type;
+		}
+
+		public void setScan_type(String scan_type) {
+			this.scan_type = scan_type;
+		}
+
+		public Date getCreatedAt() {
+			return createdAt;
+		}
+
+		public void setCreatedAt(Date createdAt) {
+			this.createdAt = createdAt;
+		}
+
+		public Date getUpdatedAt() {
+			return updatedAt;
+		}
+
+		public void setUpdatedAt(Date updatedAt) {
+			this.updatedAt = updatedAt;
+		}
+		// --------------- GETTERS SETTERS -------------
+		
 		// ----- For Record ---------
 		@Column(nullable = false, updatable = false)
 	    @Temporal(TemporalType.TIMESTAMP)
