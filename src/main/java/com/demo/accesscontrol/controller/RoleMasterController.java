@@ -23,9 +23,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.accesscontrol.commons.util.CommonUtil;
+import com.demo.accesscontrol.common.util.CommonUtil;
 import com.demo.accesscontrol.dto.RoleMasterDto;
 import com.demo.accesscontrol.entity.RoleMaster;
 import com.demo.accesscontrol.repository.RoleMasterRepository;
@@ -45,7 +46,7 @@ public class RoleMasterController {
 	RoleMasterService  roleMasterService;
 	// get All ROLE
 	@GetMapping("/getRoles")
-	public ResponseEntity<List<RoleMaster>> getAllRoles(Pageable pageable) {
+	public ResponseEntity<List<RoleMaster>> getAllRoles(Pageable pageable) { // ResponseEntity<List<RoleMaster>>
 		List<RoleMaster> roleList=null;
 		try {
 			roleList = roleMasterService.getAllRole();
@@ -53,22 +54,22 @@ public class RoleMasterController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    return new ResponseEntity(roleList,HttpStatus.OK)   ;
+	    return new ResponseEntity(roleList,HttpStatus.OK);
 	}
 	
 	// create a new ROLE/ Register
 	@PostMapping("/createRole") //@Valid @RequestBody
-	public RoleMaster createNote(@Valid @RequestBody RoleMasterDto roleDto) {
+	public ResponseEntity<RoleMaster>  createNote(@Valid @RequestBody RoleMasterDto roleDto) {
 		RoleMaster r=(RoleMaster) CommonUtil.objectUtilMapper(roleDto, new RoleMaster());
 				
 		System.out.println("role is " +r.toString());
 	    try {
-			return roleMasterService.save(r) ;
+			return new ResponseEntity(roleMasterService.save(r),HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return r;
+		return new ResponseEntity(null,HttpStatus.NO_CONTENT);
 	}
 	
 	/*
