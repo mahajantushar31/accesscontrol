@@ -51,40 +51,98 @@ public class AccessMaster implements Serializable{
 	
 	@Column(name = "password",nullable = false)
 	@NotNull
-	@Getter @Setter
     private String password;	//	varchar2	30
 	
 	@Column(name = "role_id",nullable = false)
 	@NotNull
-	@Getter @Setter
     private String role_id;		//	number	20
 	
 	@Column(name = "access_creation_date",nullable = false)
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@Getter @Setter
     private Date accessCreationDate;	//	date	
 	
 	@Column(name = "access_valid_date",nullable = false)
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@Getter @Setter
     private Date accessValidDate;	//	date	
 	
 
 	// ----- For Record ---------
 	@Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter
     @CreatedDate
     private Date createdAt;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
-    @Getter @Setter
     private Date updatedAt;
 
+    //-----------------GETTERS / SETTER STARTS -------------------
+    
+
+	public Integer getStaff_id() {
+		return staff_id;
+	}
+
+	public void setStaff_id(Integer staff_id) {
+		this.staff_id = staff_id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRole_id() {
+		return role_id;
+	}
+
+	public void setRole_id(String role_id) {
+		this.role_id = role_id;
+	}
+
+	public Date getAccessCreationDate() {
+		return accessCreationDate;
+	}
+
+	public void setAccessCreationDate(Date accessCreationDate) {
+		this.accessCreationDate = accessCreationDate;
+	}
+
+	public Date getAccessValidDate() {
+		return accessValidDate;
+	}
+
+	public void setAccessValidDate(Date accessValidDate) {
+		this.accessValidDate = accessValidDate;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	
+    
+    
+    
+    // ----------------- GETTER /SETTER ENDS -------------------- 
 	@Override
 	public String toString() {
 		return "AccessTab [staff_id=" + staff_id + ", password=" + password + ", role_id=" + role_id
@@ -92,6 +150,5 @@ public class AccessMaster implements Serializable{
 				+ createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 
-	
     
 }
