@@ -83,6 +83,119 @@ public class StaffMaster implements Serializable {
 	@Getter @Setter
     private Date last_active_date; //	date	
 
+	// --------------GETTERS SETTERS -----------------
+	
+
+    public Integer getStaff_id() {
+		return staff_id;
+	}
+
+
+	public void setStaff_id(Integer staff_id) {
+		this.staff_id = staff_id;
+	}
+
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+
+	public String getLastname() {
+		return lastname;
+	}
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+	public Date getDob() {
+		return dob;
+	}
+
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public Date getDate_of_joining() {
+		return date_of_joining;
+	}
+
+
+	public void setDate_of_joining(Date date_of_joining) {
+		this.date_of_joining = date_of_joining;
+	}
+
+
+	public Date getLast_active_date() {
+		return last_active_date;
+	}
+
+
+	public void setLast_active_date(Date last_active_date) {
+		this.last_active_date = last_active_date;
+	}
+
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// --------------GETTERS SETTERS -----------------
+	
 	// ----- For Record ---------
 	@Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -90,7 +203,9 @@ public class StaffMaster implements Serializable {
     @CreatedDate
     private Date createdAt;
 
-    @Column(nullable = false)
+
+
+	@Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     @Getter @Setter
