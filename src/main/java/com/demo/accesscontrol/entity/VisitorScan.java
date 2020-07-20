@@ -88,7 +88,114 @@ public class VisitorScan {
     @Temporal(TemporalType.TIMESTAMP)
     @Getter @Setter
     private Date scan_type;
+	// ------ GETTES SETTERS ------------------
 	
+    public Integer getSno() {
+			return sno;
+		}
+
+		public void setSno(Integer sno) {
+			this.sno = sno;
+		}
+
+		public String getLastname() {
+			return lastname;
+		}
+
+		public void setLastname(String lastname) {
+			this.lastname = lastname;
+		}
+
+		public String getFirstname() {
+			return firstname;
+		}
+
+		public void setFirstname(String firstname) {
+			this.firstname = firstname;
+		}
+
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		public Integer getAge() {
+			return age;
+		}
+
+		public void setAge(Integer age) {
+			this.age = age;
+		}
+
+		public String getPhone() {
+			return phone;
+		}
+
+		public void setPhone(String phone) {
+			this.phone = phone;
+		}
+
+		public Date getDate_of_visit() {
+			return date_of_visit;
+		}
+
+		public void setDate_of_visit(Date date_of_visit) {
+			this.date_of_visit = date_of_visit;
+		}
+
+		public String getPurpose_of_visit() {
+			return purpose_of_visit;
+		}
+
+		public void setPurpose_of_visit(String purpose_of_visit) {
+			this.purpose_of_visit = purpose_of_visit;
+		}
+
+		public Date getScan_date() {
+			return scan_date;
+		}
+
+		public void setScan_date(Date scan_date) {
+			this.scan_date = scan_date;
+		}
+
+		public double getScan_temp() {
+			return scan_temp;
+		}
+
+		public void setScan_temp(double scan_temp) {
+			this.scan_temp = scan_temp;
+		}
+
+		public Date getScan_type() {
+			return scan_type;
+		}
+
+		public void setScan_type(Date scan_type) {
+			this.scan_type = scan_type;
+		}
+
+		public Date getCreatedAt() {
+			return createdAt;
+		}
+
+		public void setCreatedAt(Date createdAt) {
+			this.createdAt = createdAt;
+		}
+
+		public Date getUpdatedAt() {
+			return updatedAt;
+		}
+
+		public void setUpdatedAt(Date updatedAt) {
+			this.updatedAt = updatedAt;
+		}
+	
+	
+	//----- GETTERS SETTERS -------------------
 
 	// ----- For Record ---------
 			@Column(nullable = false, updatable = false)
@@ -97,11 +204,22 @@ public class VisitorScan {
 		    @CreatedDate
 		    private Date createdAt;
 
-		    @Column(nullable = false)
+	
+
+			@Column(nullable = false)
 		    @Temporal(TemporalType.TIMESTAMP)
 		    @LastModifiedDate
 		    @Getter @Setter
 		    private Date updatedAt;
+
+			@Override
+			public String toString() {
+				return "VisitorScan [sno=" + sno + ", lastname=" + lastname + ", firstname=" + firstname + ", email="
+						+ email + ", age=" + age + ", phone=" + phone + ", date_of_visit=" + date_of_visit
+						+ ", purpose_of_visit=" + purpose_of_visit + ", scan_date=" + scan_date + ", scan_temp="
+						+ scan_temp + ", scan_type=" + scan_type + ", createdAt=" + createdAt + ", updatedAt="
+						+ updatedAt + "]";
+			}
 	
 	
 	
