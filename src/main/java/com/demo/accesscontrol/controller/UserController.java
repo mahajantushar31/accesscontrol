@@ -1,5 +1,5 @@
 /*===========================
-FileName: StaffController.java
+FileName: UserController.java
 Author:Tushar Mahajan
 History:
 Date:Jul 18, 2020:created
@@ -10,10 +10,13 @@ Date:Jul 18, 2020:created
  */
 package com.demo.accesscontrol.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
+// import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,64 +26,92 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.accesscontrol.commons.util.CommonUtil;
-import com.demo.accesscontrol.dto.StaffMasterDto;
-import com.demo.accesscontrol.entity.StaffMaster;
-import com.demo.accesscontrol.service.StaffMasterService;
+import com.demo.accesscontrol.common.util.CommonUtil;
+import com.demo.accesscontrol.dto.UserDto;
+import com.demo.accesscontrol.entity.User;
+import com.demo.accesscontrol.service.EmailService;
+import com.demo.accesscontrol.service.UserService;
+
+// @formatter:on
 
 /**
  * @author Tushar mahajan
  *
  */
 
-@RequestMapping("/staff")
+@RequestMapping("/user")
 @RestController
-public class StaffMasterController {
+public class UserController {
+	// old: // staff_id firstname lastname dob email phone date_of_joining last_active_date
 	
-	// staff_id firstname lastname dob email phone date_of_joining last_active_date
+	// new:	email	Role Password	firstname	lastname	dob	phone	date_of_joining	last_active_date	
+	
 	@Autowired
-	StaffMasterService staffMasterService;
+	UserService userService;
 	
-	@GetMapping("/getAllStaffDetail")
-	public ResponseEntity<List<StaffMaster>> getAllStaffDetail()  {
-		List<StaffMaster> staffMasterList = null;
+	@Autowired
+	EmailService emailService;
+	
+	
+	@GetMapping("/getAllUserDetail")
+	public ResponseEntity<List<User>> getAllUserDetail()  {
+		List<User> userList = null;
 		try {
-			staffMasterList = staffMasterService.getAllStaffDetail();
+			userList = userService.getAllUserDetail();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ResponseEntity(staffMasterList,HttpStatus.OK);
+		return new ResponseEntity(userList,HttpStatus.OK);
 		
 	}
 	
-	@PostMapping("/getStaffById")
-	public ResponseEntity<StaffMaster>  getStaffById(@Valid  @RequestBody String id){
-		StaffMaster staff;
+	@PostMapping("/getUserById")
+	public ResponseEntity<User>  getUserById(@Valid  @RequestBody String id){
+		User staff = null;
 		try {
-			staff = staffMasterService.getStaffById(id);
-			return new ResponseEntity(staff,HttpStatus.OK) ;
+			staff = userService.getUserById(id);
+			return new ResponseEntity(staff,HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return new ResponseEntity(staff,HttpStatus.NO_CONTENT);
 	}
 	
-	@PostMapping("/saveStaff")
-	public ResponseEntity<StaffMaster> saveStaff(@Valid @RequestBody StaffMasterDto staff){
-		
+	@RequestMapping("/saveUser")
+	public ResponseEntity<User> saveUser(@RequestBody UserDto userDto){
 		// firstname lastname dob email phone date_of_joining last_active_date
-		System.out.println(" sysout "+staff.toString());
-		StaffMaster staffMst= (StaffMaster) CommonUtil.objectUtilMapper(staff, new StaffMaster());
+		System.out.println(" sysout "+userDto.toString());
+		User user= (User) CommonUtil.objectUtilMapper(userDto, new User());
+		// ModelMapper m=new ModelMapper();
 		try {
-			staffMst = staffMasterService.saveStaff(staffMst);
-			return new ResponseEntity(staffMst,HttpStatus.OK) ;
+			user = userService.saveOrUpdate(user);
+			return new ResponseEntity(user,HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return  new ResponseEntity(user,HttpStatus.NO_CONTENT);
+		
+	}
+	
+	@RequestMapping("/sendInviteEmail")
+	public ResponseEntity<String> sendInviteEmail(){   // @RequestBody UserDto staff
+		// firstname lastname dob email phone date_of_joining last_active_date
+		// System.out.println(" sysout "+staff.toString());
+		// User staffMst= (User) CommonUtil.objectUtilMapper(staff, new User());
+		// ModelMapper m=new ModelMapper();
+		String emailMsg="";
+		Map<String,String> emailConfigParam=new HashMap<String,String>();
+		try {
+			emailMsg = emailService.sendInviteMail(emailConfigParam);
+			return new ResponseEntity(emailMsg,HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return  new ResponseEntity(emailMsg,HttpStatus.NO_CONTENT);
 		
 	}
 	
