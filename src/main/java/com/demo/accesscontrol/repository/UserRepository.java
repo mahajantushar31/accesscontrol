@@ -23,50 +23,83 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.demo.accesscontrol.entity.StaffMaster;
+import com.demo.accesscontrol.entity.User;
 
 /**
  * @author Tushar mahajan
  *
  */
 @Repository
-public interface StaffMasterRepository extends JpaRepository<StaffMaster, Long>{
-	/*
-	static EntityManagerFactory entityManagerFactory =Persistence.createEntityManagerFactory("StaffMaster");
+public interface UserRepository extends JpaRepository<User, Long>{
+		
+	@Query(value="SELECT * FROM user as e",nativeQuery = true)	
+	public List<User> getAllUserDetail()throws Exception;
+		
+	@Query(value="SELECT * FROM user e WHERE e.user_id = :id",nativeQuery = true)
+	public User getUserById(String id) throws Exception;
+	
+	@Query(value="SELECT * FROM user e WHERE e.email = :email",nativeQuery = true)
+	public User getUserByEmail(String email) throws Exception;
+	
+	/**/
+	
+	/* 
+	static EntityManagerFactory entityManagerFactory =Persistence.createEntityManagerFactory("User");
 	// staff_id firstname lastname dob email phone date_of_joining last_active_date
 	@Autowired
 	EntityManager entityManager = entityManagerFactory.createEntityManager();
-	*/
-	
-	
-	@Query(value="SELECT * FROM staff_master as e",nativeQuery = true)	
-	public List<StaffMaster> getAllStaffDetail()throws Exception;
+	/*-
+	static String checkAnd(Integer and){
 		
-	@Query(value="SELECT * FROM staff_master e WHERE e.staff_id = :id",nativeQuery = true)
-	public StaffMaster getStaffById(String id) throws Exception;
+		return (1==and)?" AND ":"";
+	}
 	
-	
-	/*
-	
+	// email	Role Password	firstname	lastname	dob	phone	date_of_joining	last_active_date
 	//@Query(value="SELECT * FROM staff_master e WHERE e.role_Name = :role",nativeQuery = true)
-	public default StaffMaster getStaffByParameter(Map<String,String>  paramMap) {
-		String queryString="Select * from staff_master sm ";
-		if(paramMap.size()>0)
+	public default User getStaffByParameter(Map<String,String>  paramMap) {
+		String queryString="Select * from User sm ";
+		if(paramMap.size()>0) {
 			queryString +=" where ";
-		
-		if(paramMap.get("staff_id") != null)
-			queryString +=" staff_id =:"+paramMap.get("staff_id");
-		
+				Integer and=0;
+				if(paramMap.get("email") != null) {
+					queryString +=" email =:"+paramMap.get("email");
+					and=1;
+				}
+				if(paramMap.get("role_id") != null) {
+					queryString +=checkAnd(and)+" role_id =:"+paramMap.get("role_id");
+					and = 1;
+				}
+				if(paramMap.get("firstname") != null) {
+					queryString +=checkAnd(and)+" firstname =:"+paramMap.get("firstname");
+					and = 1;
+				}
+				if(paramMap.get("lastname") != null) {
+					queryString +=checkAnd(and)+" lastname =:"+paramMap.get("lastname");
+					and = 1;
+				}
+				if(paramMap.get("dob") != null) {
+					queryString +=checkAnd(and)+" dob =:'"+paramMap.get("dob")+"'";
+					and = 1;
+				}
+				if(paramMap.get("date_of_joining") != null) {
+					queryString +=checkAnd(and)+" date_of_joining =:'"+paramMap.get("date_of_joining")+"'";
+					and = 1;
+				}
+				if(paramMap.get("last_active_date") != null) {
+					queryString +=checkAnd(and)+" last_active_date =:'"+paramMap.get("last_active_date")+"'";
+					//and = 1;
+				}
+		}
 		 Query query = (Query) entityManager.createNativeQuery(queryString);
-	   
-		 /-* List<StaffMaster> list =(List<StaffMaster>)query.;
+	   entityManager.
+		 List<User> list =(List<User>)query.get;
 		
 		 * for (Object o : list) { if (o instanceof Object[]) {
 		 * System.out.println(Arrays.toString((Object[]) o)); } else {
 		 * System.out.println(o); } }
-		 *=/
+		 *-/
 		
 		return null;  //need to implement  this custo query for this 
 
-	}*/
+	}  */
 }
