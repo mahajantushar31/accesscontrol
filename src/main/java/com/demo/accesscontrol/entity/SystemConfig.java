@@ -39,25 +39,22 @@ import lombok.Setter;
  */
 
 @Entity
-@Table(name = "system_config")
+//@Table(name = "system_config")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 public class SystemConfig implements Serializable{
 
 		@Id
-		@Getter @Setter
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Column(name="id")
+		@Column(length=20)
 		private Integer id; //20
 		
-		@Column(name = "system_key",nullable = false,unique = true)
+		@Column(length=20,nullable = false,unique = true)
 		@NotNull
-		@Getter @Setter
 	    private String systemKey;
 		
-		@Column(name = "system_value",nullable = false)
+		@Column(length=50,nullable = false)
 		@NotNull
-		@Getter @Setter
 	    private String systemValue;	// varchar2	50
 		
 		// ------- GETTES SETTERS --------------
