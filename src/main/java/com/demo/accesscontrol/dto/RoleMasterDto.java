@@ -1,11 +1,13 @@
 package com.demo.accesscontrol.dto;
 
+import java.io.Serializable;
+
 /**
  * @author Tushar mahajan
  *
  */
 
-public class RoleMasterDto {
+public class RoleMasterDto implements Serializable {
 	
     private String roleName;
 
