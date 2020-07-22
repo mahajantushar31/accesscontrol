@@ -5,8 +5,10 @@
     <persistence-unit name="JPADao" transaction-type="RESOURCE_LOCAL">
          <!--  <class>com.jcg.jpa.demo.Farmer</class> -->
         <class>com.demo.accesscontrol.entity.RoleMaster</class>
-        <class>com.demo.accesscontrol.entity.AccessMaster</class>
-        <class>com.demo.accesscontrol.entity.StaffMaster</class>
+        <class>com.demo.accesscontrol.entity.UserAccess</class>
+        <class>com.demo.accesscontrol.entity.UserQrAccess</class>
+        <class>com.demo.accesscontrol.entity.AccessLog</class>
+        <class>com.demo.accesscontrol.entity.User</class>
         <class>com.demo.accesscontrol.entity.StaffScan</class>
         <class>com.demo.accesscontrol.entity.VisitorScan</class>
         <class>com.demo.accesscontrol.entity.SystemConfig</class>      
