@@ -7,16 +7,16 @@ Date:Jul 18, 2020:created
 
 package com.demo.accesscontrol.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.demo.accesscontrol.common.util.DateUtil;
 
 /**
  * @author Tushar mahajan
  *
  */
-public class StaffMasterDto {
+public class UserDto implements Serializable {
 	
 	/*
 	 * @Getter @Setter private Integer staff_id; //20
@@ -29,15 +29,13 @@ public class StaffMasterDto {
     private Date dob;	
 	
     private String email;  //	varchar2	50
+    private String password;
 	
     private String phone;	//varchar2	20
 	
     private Date date_of_joining;
 	
     private Date last_active_date; //	date	
-
-	
-
 
 	public String getFirstname() {
 		return firstname;
@@ -65,6 +63,7 @@ public class StaffMasterDto {
 
 
 	public void setDob(Date dob) {
+		//dob=DateUtil.changeDateFormatToStdDBSaveformat(dob);
 		this.dob = dob;
 	}
 
@@ -90,11 +89,13 @@ public class StaffMasterDto {
 
 
 	public Date getDate_of_joining() {
+	
 		return date_of_joining;
 	}
 
 
 	public void setDate_of_joining(Date date_of_joining) {
+		//date_of_joining=DateUtil.changeDateFormatToStdDBSaveformat(date_of_joining);
 		this.date_of_joining = date_of_joining;
 	}
 
@@ -105,15 +106,30 @@ public class StaffMasterDto {
 
 
 	public void setLast_active_date(Date last_active_date) {
+		//last_active_date=DateUtil.changeDateFormatToStdDBSaveformat(last_active_date);
 		this.last_active_date = last_active_date;
 	}
 	
+	
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 	@Override
 	public String toString() {
-		return "StaffMasterDto [firstname=" + firstname + ", lastname=" + lastname + ", dob=" + dob + ", email=" + email
-				+ ", phone=" + phone + ", date_of_joining=" + date_of_joining + ", last_active_date=" + last_active_date
-				+ "]";
+		return "UserDto [firstname=" + firstname + ", lastname=" + lastname + ", dob=" + dob + ", email=" + email
+				+ ", password=" + password + ", phone=" + phone + ", date_of_joining=" + date_of_joining
+				+ ", last_active_date=" + last_active_date + "]";
 	}
+
+
+	
 
 	
 	
