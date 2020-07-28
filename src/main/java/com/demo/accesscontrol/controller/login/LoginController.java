@@ -35,6 +35,7 @@ import com.demo.accesscontrol.common.util.ConfigProperties;
 import com.demo.accesscontrol.common.util.QRGenerationUtil;
 import com.demo.accesscontrol.dto.ResponseDto;
 import com.demo.accesscontrol.dto.UserDto;
+import com.demo.accesscontrol.dto.UserLoginDto;
 import com.demo.accesscontrol.entity.User;
 import com.demo.accesscontrol.entity.UserAccess;
 import com.demo.accesscontrol.entity.UserQrAccess;
@@ -255,7 +256,7 @@ public class LoginController {
 		}
 		
 		
-		
+		// get dummy access code 
 		private String getAccessCode(String roleCode){
 			Map<String,String> accessCodemap=new HashMap();
 			accessCodemap.put("admin", "1234"); // 1 mainGate 2 OPD 3 ICU1 4 Emergency 
@@ -264,6 +265,7 @@ public class LoginController {
 			return (null==accessCodemap.get(roleCode))?"1":accessCodemap.get(roleCode);
 		}
 			
+		// generate UserQrAccess entry in table
 		private UserQrAccess generateQrForAccessUserAndSave(UserAccess userAccess) {
 			UserQrAccess userQrAccess=new UserQrAccess();
 			userQrAccess.setAccess_id(userAccess.getAccess_id());
@@ -283,6 +285,7 @@ public class LoginController {
 		}
 		
 		
+		// create UserAccess  entry in userAccess table
 		private UserAccess setUserAccessRecordAndSave(User user){
 			// access_name[Fk]	access_code[FK]	role_id [Fk]	access_creation_date	access_valid_date
 
@@ -297,10 +300,10 @@ public class LoginController {
 			cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DATE));
 
 			Date lastDayOfMonth = cal.getTime();
-			SimpleDateFormat sdf=new SimpleDateFormat("YYYY-mm-dd");
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 			Date dt=null;
 			try {
-				dt = new SimpleDateFormat("YYYY-mm-dd").parse(sdf.format(lastDayOfMonth));
+				dt = new SimpleDateFormat("yyyy-mm-dd").parse(sdf.format(lastDayOfMonth));
 				userAccess.setAccessValidDate(dt);
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
@@ -323,9 +326,45 @@ public class LoginController {
 		}
 		
 		
+// login user
+		@PostMapping("/loginUser")
+		public ResponseDto  getUserLogin(@Valid  @RequestBody UserLoginDto userLogin){
+			User user = null;
+			ResponseDto responseDto=new ResponseDto();
+			String username="";
+			String password="";
+			try {
+				username=userLogin.getUsername();
+				password=userLogin.getPassword();
+				System.out.println("usename "+username+" pass "+password+" userLoginDTO "+userLogin);
+				
+				user = userService.getUserByUserNamePass(username, password);
+				
+				if(null==user) {
+					responseDto.setResponseMsg("User not found for the given user credentials");
+					userLogin.setPassword("*****");
+					responseDto.setResponseObject(userLogin);
+				}else {
+					userLogin.setPassword("*****");
+					responseDto.setResponseObject(userLogin);
+					responseDto.setResponseMsg("User Login Success");
+				}
+				
+				return responseDto;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				responseDto.setResponseMsg("User Login failed for given user credentials");
+				userLogin.setPassword("*****");
+				responseDto.setResponseObject(userLogin);
+			}
+			return responseDto;
+		}
+		
+
 		
 		
-		
+// ------------------------------------------------------------------------------------------------
 		
 		@PostMapping("/registerUser")
 		public ResponseEntity<User>  getStaffById(@Valid  @RequestBody String id){
