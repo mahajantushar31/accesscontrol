@@ -108,6 +108,18 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	@Override
+	public User getUserByUserNamePass(String userName, String password) throws Exception {
+		User user;
+		try {
+		user=userRepository.getUserByUserNamePass(userName, password);
+		return user;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 	/*Map<String,String> paramMap=new HashMap();
 			paramMap.put("email",user.getEmail());
