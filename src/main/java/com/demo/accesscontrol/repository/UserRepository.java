@@ -41,6 +41,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query(value="SELECT * FROM user e WHERE e.email = :email",nativeQuery = true)
 	public User getUserByEmail(String email) throws Exception;
 	
+	@Query(value="SELECT * FROM user e WHERE e.email = :email and e.password = :password",nativeQuery = true)
+	public User getUserByUserNamePass(String email ,String password) throws Exception;
+	
 	/**/
 	
 	/* 
