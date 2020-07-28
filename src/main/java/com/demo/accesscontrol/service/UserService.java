@@ -21,6 +21,8 @@ public interface UserService {
 		
 	public User getUserById(String id) throws Exception;
 	
+	public User getUserByUserNamePass(String userName ,String password) throws Exception;
+	
 	public User saveOrUpdate(User user) throws Exception;
 	
 	// public User getUserByParam(Map<String,String> paramMap) throws Exception;
