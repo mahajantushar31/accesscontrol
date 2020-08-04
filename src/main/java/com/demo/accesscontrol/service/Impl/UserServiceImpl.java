@@ -120,7 +120,19 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	@Override
+	public User getUserByEmail(String email) throws Exception {
+		User user;
+		try {
+			user=userRepository.getUserByEmail(email);
+			return user;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	
 	/*Map<String,String> paramMap=new HashMap();
 			paramMap.put("email",user.getEmail());
 	 * @Override public User getUserByParam(Map<String, String> paramMap) throws
