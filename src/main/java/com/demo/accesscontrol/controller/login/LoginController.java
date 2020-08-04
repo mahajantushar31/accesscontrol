@@ -39,10 +39,12 @@ import com.demo.accesscontrol.dto.UserLoginDto;
 import com.demo.accesscontrol.entity.User;
 import com.demo.accesscontrol.entity.UserAccess;
 import com.demo.accesscontrol.entity.UserQrAccess;
+import com.demo.accesscontrol.entity.UserToAccessCodeMap;
 import com.demo.accesscontrol.service.EmailService;
 import com.demo.accesscontrol.service.UserAccessService;
 import com.demo.accesscontrol.service.UserQrAccessService;
 import com.demo.accesscontrol.service.UserService;
+import com.demo.accesscontrol.service.UserToAccessCodeMapService;
 
 /**
  * @author Tushar mahajan
@@ -70,8 +72,10 @@ public class LoginController {
 		@Autowired
 		UserQrAccessService userQrAccessService;
 		
-		ResponseDto responseDto=new ResponseDto();
+		@Autowired
+		UserToAccessCodeMapService  userToAccessCodeMapService;
 		
+		ResponseDto responseDto=new ResponseDto();
 		
 	/*
 	 * ModelMapper modelMapper = new ModelMapper(); // user here is a prepopulated
@@ -218,7 +222,7 @@ public class LoginController {
 					 * System.out.println("  mimeMsgContent:"+mimeMsgContent+" attachement:"
 					 * +attachement);
 					 */
-						emailCofigParam.put("emailSubject"," Invite User d for Access Control");
+						emailCofigParam.put("emailSubject"," Invite User details for Access Control");
 						// -----------------------------------------	
 						emailCofigParam.put(AccessCtrlConstant.EMAIL_FROM,config.getEmailFrom());
 						emailCofigParam.put(AccessCtrlConstant.AUTH_EMAIL,config.getAuthEmail());
@@ -248,7 +252,7 @@ public class LoginController {
 			
 			}catch(Exception e) {
 				
-				respoMsg=" UserAccess creation interpted  Error "+e.fillInStackTrace();;
+				respoMsg=" UserAccess creation interpted  Error : "+e;
 				responseDto.setResponseMsg(respoMsg);
 				responseDto.setResponseObject(user);
 			}
@@ -257,12 +261,34 @@ public class LoginController {
 		
 		
 		// get dummy access code 
-		private String getAccessCode(String roleCode){
-			Map<String,String> accessCodemap=new HashMap();
-			accessCodemap.put("admin", "1234"); // 1 mainGate 2 OPD 3 ICU1 4 Emergency 
-			accessCodemap.put("emp", "124");
-			accessCodemap.put("visitor", "14");
-			return (null==accessCodemap.get(roleCode))?"1":accessCodemap.get(roleCode);
+		private String getAccessCode(String emailOrAccessName) throws Exception{
+			String roleCode="";
+			User user=userService.getUserByEmail(emailOrAccessName);
+			if(null!=user) {
+				roleCode=user.getRole_id();
+				UserToAccessCodeMap userToAccessCodeMap=userToAccessCodeMapService.getUserToAccessCodeMapByUserId(user.getUser_id());
+				if(null!=userToAccessCodeMap) {
+					return userToAccessCodeMap.getAccess_code();
+				}else { 
+					
+					Map<String,String> accessCodemap=new HashMap();
+					accessCodemap.put("admin", "ALL"); // 1 mainGate 2 OPD 3 ICU1 4 Emergency 
+					accessCodemap.put("emp", "124");
+					accessCodemap.put("visitor", "14"); // MENTRY_E-EXIT      
+					/*
+					  [  # access_point_id, access_point_code, access_point_name, created_at,         is_available
+										1 , MENTRY,              Main Entrance,    2020-08-03 01:24:08, 1 
+										4 , E-EXIT,             Emergency Exit,    2020-08-04 09:29:17, 1 ]
+					  
+					 */
+					return (null==accessCodemap.get(roleCode))?"1":accessCodemap.get(roleCode);
+					
+					//throw new Exception("Please add user maping in UserToAccessCodeMapMaster");
+				}
+			}
+			
+			throw new Exception("User not found Please add user and then grant access to it");
+			
 		}
 			
 		// generate UserQrAccess entry in table
@@ -286,13 +312,13 @@ public class LoginController {
 		
 		
 		// create UserAccess  entry in userAccess table
-		private UserAccess setUserAccessRecordAndSave(User user){
+		private UserAccess setUserAccessRecordAndSave(User user)throws Exception{
 			// access_name[Fk]	access_code[FK]	role_id [Fk]	access_creation_date	access_valid_date
 
 			
 			UserAccess userAccess=new UserAccess();
 			userAccess.setAccess_name(user.getEmail());
-			userAccess.setAccess_code(getAccessCode(user.getRole_id()));
+			userAccess.setAccess_code(getAccessCode(user.getEmail()));   // 
 			userAccess.setRole_id(user.getRole_id());
 			userAccess.setAccessCreationDate(new Date());
 			
@@ -302,25 +328,24 @@ public class LoginController {
 			Date lastDayOfMonth = cal.getTime();
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 			Date dt=null;
-			try {
+			
 				dt = new SimpleDateFormat("yyyy-mm-dd").parse(sdf.format(lastDayOfMonth));
 				userAccess.setAccessValidDate(dt);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		/*
+		 * } catch (ParseException e1) { // TODO Auto-generated catch block
+		 * e1.printStackTrace(); }
+		 */
 			
 			
-			try {
+		//	try {
 				userAccess=userAccessService.saveOrUpdate(userAccess);
 				if(null!=userAccess)
 					System.out.println("  "+userAccess.toString());
 				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}
+		/*
+		 * } catch (Exception e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); return null; }
+		 */
 			
 			return userAccess;
 		}
