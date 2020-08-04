@@ -43,48 +43,38 @@ public class VisitorScan {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter @Setter
     private Integer sno;
     	
-	@Column(name="last_name" ,nullable = false, updatable = false)
-    @Getter @Setter
+	@Column(length=50 ,nullable = false, updatable = false)
     private String lastname;	
 	
-	@Column(name="first_name" ,nullable = false, updatable = false)
-    @Getter @Setter
+	@Column(length=50 ,nullable = false, updatable = false)
     private String firstname;
 	
-	@Column(name="email" ,nullable = false, updatable = false)
-    @Getter @Setter
+	@Column(length=50 ,nullable = false, updatable = false)
     private String email;
 	
-	@Column(name="age" ,nullable = false, updatable = false)
-    @Getter @Setter
+	@Column(length=4,nullable = false, updatable = false)
     private Integer age;
 	
-	@Column(name="phone" ,nullable = false, updatable = false)
-    @Getter @Setter
+	@Column(length=20 ,nullable = false, updatable = false)
     private String phone;
 	
-	@Column(name="date_of_visit",nullable = false,insertable=false, updatable = false)
+	@Column(nullable = false,insertable=false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter
     private Date date_of_visit;	
 	
-	@Column(name="purpose_of_visit",nullable = false, updatable = false)
-    @Getter @Setter
+	@Column(nullable = false, updatable = false)
     private String purpose_of_visit;	
 	
-	@Column(name="date_of_visit",nullable = false, updatable = false)
+	@Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Getter @Setter
     private Date scan_date;
 	
-	@Column(name="scan_temp",nullable = false, updatable = false)
-    @Getter @Setter
+	@Column(nullable = false, updatable = false)
     private double scan_temp;
 	
-	@Column(name="scan_type",nullable = false, updatable = false)
+	@Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @Getter @Setter
     private Date scan_type;
