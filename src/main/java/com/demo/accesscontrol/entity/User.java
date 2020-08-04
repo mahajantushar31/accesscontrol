@@ -1,5 +1,5 @@
 /*===========================
-FileName: StaffMasterTab.java
+FileName: User.java
 Author:Tushar Mahajan
 History:
 Date:Jul 17, 2020:created
@@ -55,7 +55,7 @@ public class User implements Serializable {
 	@Getter @Setter											
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(length=20)
-	private long  user_id; 
+	private Long  user_id; 
 	// @OneToOne(optional=false)  @JoinColumn(  name="", unique=true, nullable=false, updatable=false)
 	@Column(nullable = false,length=50,unique=true)@NotNull
     private String email;  
@@ -121,11 +121,11 @@ public class User implements Serializable {
 
 	// --------------GETTERS SETTERS -----------------
 
-	public long getUser_id() {
+	public Long getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(long user_id) {
+	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
 	}
 
