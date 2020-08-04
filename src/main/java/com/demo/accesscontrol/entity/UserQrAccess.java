@@ -1,5 +1,5 @@
 /*===========================
-FileName: StaffScanTab.java
+FileName: UserQrAccess.java
 Author:Tushar Mahajan
 History:
 Date:Jul 18, 2020:created
@@ -44,13 +44,13 @@ public class UserQrAccess implements Serializable {
 				// staff_id scan_date scan_temp
 		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Integer userQrAccess_id;
+	    private Long userQrAccess_id;
 	    	
 		@Column(length=50,nullable = false, updatable = false)
 	    private String qr;	
 		
 		@Column(nullable = false, updatable = false)
-	    private Integer access_id;
+	    private Long access_id;
 			
 		
 		// ----- For Record ---------
@@ -75,11 +75,11 @@ public class UserQrAccess implements Serializable {
 
 		
 		// --------------- GETTERS SETTERS -------------
-		  public Integer getUserQrAccess_id() {
+		  public Long getUserQrAccess_id() {
 				return userQrAccess_id;
 			}
 
-			public void setUserQrAccess_id(Integer userQrAccess_id) {
+			public void setUserQrAccess_id(Long userQrAccess_id) {
 				this.userQrAccess_id = userQrAccess_id;
 			}
 
@@ -91,11 +91,11 @@ public class UserQrAccess implements Serializable {
 				this.qr = qr;
 			}
 
-			public long getAccess_id() {
+			public Long getAccess_id() {
 				return access_id;
 			}
 
-			public void setAccess_id(Integer access_id) {
+			public void setAccess_id(Long access_id) {
 				this.access_id = access_id;
 			}
 
