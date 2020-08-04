@@ -47,7 +47,7 @@ public class SystemConfig implements Serializable{
 		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(length=20)
-		private Integer id; //20
+		private Long id; //20
 		
 		@Column(length=20,nullable = false,unique = true)
 		@NotNull
@@ -58,11 +58,11 @@ public class SystemConfig implements Serializable{
 	    private String systemValue;	// varchar2	50
 		
 		// ------- GETTES SETTERS --------------
-		 public Integer getId() {
+		 public Long getId() {
 				return id;
 			}
 
-			public void setId(Integer id) {
+			public void setId(Long id) {
 				this.id = id;
 			}
 
