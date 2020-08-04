@@ -1,5 +1,5 @@
 /*===========================
-FileName: UserAccessService.java
+FileName: UserQrAccessService.java
 Author:Tushar Mahajan
 History:
 Date:Jul 21, 2020:created
