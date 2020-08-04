@@ -7,13 +7,13 @@ import java.lang.reflect.Field;
  */
 public class CommonUtil {
 
-	public static Object objectUtilMapper(Object object1,Object object2) {
+	public static Object objectUtilMapper(Object copyFromObj1,Object copyToObj2) {
 		
-		 Class cls1=object1.getClass();
+		 Class cls1=copyFromObj1.getClass();
 		 Field fields1[]=cls1.getDeclaredFields();
 		 Field f=null;
 		 // -- 
-		 Class cls2=object2.getClass();
+		 Class cls2=copyToObj2.getClass();
 		 Field fields2[]=cls2.getFields();
 		 Field f2=null;
 		 System.out.println(" object 2 length : "+fields2.length);
@@ -27,18 +27,18 @@ public class CommonUtil {
 					 f.setAccessible(true);
 					  f2=cls2.getDeclaredField(f.getName());
 					 f2.setAccessible(true);
-					 f2.set(object2, f.get(object1));
+					 f2.set(copyToObj2, f.get(copyFromObj1));
 					 //System.out.println("  - Fields-  "+f.get(object1)+" -- "+cls2.getDeclaredField(f.getName()));
 				 }catch(Exception e) {
 					 System.out.println(" Exception "+e.getStackTrace()+"objec1 "+f.getName()+" Of Type :"+f.getType()+" objec 2 "+f2.getName()+" of Type :"+f2.getType() ); 
 				 }
 			 }
 		 }else {
-			 System.out.println(" NO MAtch while object maping Object 1 : "+fields1.length);
+			 System.out.println(" NO Match while object maping Object 1 : "+fields1.length);
 		 }
 		 
 		 		
-		return object2;
+		return copyToObj2;
 	}
 	
 	
@@ -64,7 +64,7 @@ public class CommonUtil {
 					 f.setAccessible(true);
 					  f2=cls2.getDeclaredField(f.getName());
 					  // if (f1.getType().equals(f2.getType()))
-					 if(null!=f.get(object1) && !((String) f.get(object1)).trim().isEmpty() && !((String) f.get(object1)).trim().isBlank()) {
+					 if(null!=f.get(object1) && !((String) f.get(object1)).trim().isEmpty() ) {  //&& !((String) f.get(object1)).trim().isBlank()
 						 f2.setAccessible(true);
 						 f2.set(object2, f.get(object1));
 					 }
@@ -109,7 +109,7 @@ public class CommonUtil {
 						 continue;
 					 }
 					 
-					 if(null!=f.get(object1) && !((String) f.get(object1)).trim().isEmpty() && !((String) f.get(object1)).trim().isBlank()) {
+					 if(null!=f.get(object1) && !((String) f.get(object1)).trim().isEmpty()) { //  && !((String) f.get(object1)).trim().isBlank()
 						 f2.setAccessible(true);
 						 f2.set(object2, f.get(object1));
 					 }
