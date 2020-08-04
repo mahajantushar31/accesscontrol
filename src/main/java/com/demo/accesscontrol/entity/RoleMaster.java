@@ -35,17 +35,14 @@ public class RoleMaster implements Serializable {
 
 		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Getter @Setter
 	    private Long role_id;
 		
-		@Column(name = "role_Name",nullable = false,unique = true)
+		@Column(length=45,nullable = false,unique = true)
 		@NotNull
-		@Getter @Setter
 	    private String roleName;
 	    
 
 		// ----- getters setters -------
-		
 		
 	    public Long getRole_id() {
 			return role_id;
