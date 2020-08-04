@@ -1,5 +1,5 @@
 /*===========================
-FileName: VisitorScanTab.java
+FileName: AccessLog.java
 Author:Tushar Mahajan
 History:
 Date:Jul 18, 2020:created
@@ -42,7 +42,7 @@ public class AccessLog {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer log_id;
+    private Long log_id;
     	
 	@Column(nullable = false, updatable = false)
     private Integer access_id;	
@@ -68,11 +68,11 @@ public class AccessLog {
 	
 	
 	// ------ GETTES SETTERS ------------------
-	public Integer getLog_id() {
+	public Long getLog_id() {
 		return log_id;
 	}
 
-	public void setLog_id(Integer log_id) {
+	public void setLog_id(Long log_id) {
 		this.log_id = log_id;
 	}
 
