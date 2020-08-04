@@ -1,5 +1,5 @@
 /*===========================
-FileName: StaffMasterService.java
+FileName: UserService.java
 Author:Tushar Mahajan
 History:
 Date:Jul 18, 2020:created
@@ -24,6 +24,8 @@ public interface UserService {
 	public User getUserByUserNamePass(String userName ,String password) throws Exception;
 	
 	public User saveOrUpdate(User user) throws Exception;
+	
+	public User getUserByEmail(String email) throws Exception;
 	
 	// public User getUserByParam(Map<String,String> paramMap) throws Exception;
 	
