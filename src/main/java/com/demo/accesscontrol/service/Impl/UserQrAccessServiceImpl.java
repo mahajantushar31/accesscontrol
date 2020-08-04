@@ -1,5 +1,5 @@
 /*===========================
-FileName: UserServiceImpl.java
+FileName: UserQrAccessServiceImpl.java
 Author:Tushar Mahajan
 History:
 Date:Jul 18, 2020:created
