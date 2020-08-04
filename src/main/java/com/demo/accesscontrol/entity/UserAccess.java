@@ -48,7 +48,7 @@ public class UserAccess implements Serializable{
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer  access_id;	
+	private Long  access_id;	
 
 	@Column(length=45,nullable = false,unique=true)
 	private String  access_name;	
@@ -91,11 +91,11 @@ public class UserAccess implements Serializable{
 
     //-----------------GETTERS / SETTER STARTS -------------------
     
-    public Integer getAccess_id() {
+    public Long getAccess_id() {
 		return access_id;
 	}
 
-	public void setAccess_id(Integer access_id) {
+	public void setAccess_id(Long access_id) {
 		this.access_id = access_id;
 	}
 
