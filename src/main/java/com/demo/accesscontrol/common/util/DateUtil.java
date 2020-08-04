@@ -25,7 +25,7 @@ import java.util.Date;
  */
 public class DateUtil {
 
-	private final static String STD_MYSQL_DB_DATE_FORMAT="YYYY-mm-dd hh:mm:ss"; 
+	private final static String STD_MYSQL_DB_DATE_FORMAT="yyyy-mm-dd hh:mm:ss"; 
 	// date to date std date format
 	public static Date changeDateFormatToStdDBSaveformat(Date date1) {
 
